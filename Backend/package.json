@@ -8,7 +8,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
-    "start": "node server.js",
+    "start":"node src/index.js",
     "seedAdmin": "node scripts/seedAdmin.js",
     "seedDepartment": "node scripts/seedDepartment.js",
     "seedDoctors": "node scripts/seedDoctors.js",
