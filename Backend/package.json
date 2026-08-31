@@ -1,0 +1,32 @@
+{
+  "name": "hospital-management-system",
+  "version": "1.0.0",
+  "description": "Creating hospital management system for authentication and authorization using nodejs, express, sequelize and postgres ",
+  "license": "ISC",
+  "author": "Dikshika Adhikari",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node server.js",
+    "seedAdmin": "node scripts/seedAdmin.js",
+    "seedDepartment": "node scripts/seedDepartment.js",
+    "seedDoctors": "node scripts/seedDoctors.js",
+    "seedDoctorDepartments": "node scripts/seedDoctorDepartments.js",
+    "reportOrphanedPatients": "node scripts/reportOrphanedPatients.js"
+  },
+  "keywords": [],
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "nodemon": "^3.1.14",
+    "pg": "^8.22.0",
+    "pg-hstore": "^2.3.4",
+    "postgres": "^3.4.9",
+    "sequelize": "^6.37.8",
+    "vite": "^8.2.1"
+  }
+}
