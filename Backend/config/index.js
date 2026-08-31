@@ -5,7 +5,7 @@ import Department from "../features/departments/department.model.js";
 import DoctorDepartment from "../features/doctordeparment/doctordepartment.model.js";
 import patient from "../features/patient/patient.model.js";
 import Doctor from "../features/doctor/doctormodel.js";
-
+import app from ../app.js;
 import receptionist from "../features/receptionist/receptionist.model.js";
 
 
