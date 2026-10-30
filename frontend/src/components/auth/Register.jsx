@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../../api";
+
+
 
 const Register = () => {
   const navigate = useNavigate();
@@ -32,7 +35,7 @@ const Register = () => {
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const response = await axios.get("http://localhost:3900/api/departments");
+        const response = await axios.get("/departments");
         setDepartments(response.data?.data || []);
       } catch (err) {
         console.error("Failed to fetch departments", err);
