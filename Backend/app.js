@@ -2,17 +2,16 @@ import dotenv from 'dotenv';
 dotenv.config();
 import cors from "cors";
 import express from 'express';
-import { connectionDB } from './config/index.js';
 import authRouter from './features/auth/auth.route.js';
 import doctorRouter from './features/doctor/doctor.route.js';
 import patientRouter from './features/patient/patient.route.js';
 import receptionistRoutes from "./features/receptionist/receptionist.routes.js";
 import appointmentRoutes from "./features/appointments/appointment.routes.js";
-import seedAdmin from "./scripts/seedAdmin.js";
 import departmentRoutes from "./features/departments/department.route.js";
 
 const app = express();
 
+// CORS — must come before any route/middleware that sends responses
 app.use(
   cors({
     origin: [
@@ -23,9 +22,11 @@ app.use(
     credentials: true,
   })
 );
-app.use(express.json());   
-await connectionDB();
-await seedAdmin();
+
+// Parse incoming JSON bodies
+app.use(express.json());
+
+// Routes
 app.use("/api/auth", authRouter);
 app.use("/api/doctors", doctorRouter);
 app.use("/api/appointments", appointmentRoutes);
@@ -33,10 +34,9 @@ app.use("/api/patient", patientRouter);
 app.use("/api/receptionists", receptionistRoutes);
 app.use("/api/departments", departmentRoutes);
 
-//test route
+// Health-check / root route
 app.get('/', (req, res) => {
-    res.send('Hello World');
+    res.send('Hospital Management System API is running.');
 });
-    
 
 export default app;

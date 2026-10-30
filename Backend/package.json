@@ -5,10 +5,10 @@
   "license": "ISC",
   "author": "Dikshika Adhikari",
   "type": "module",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "dev": "nodemon app.js",
-  "start": "node server.js",
+    "dev": "nodemon server.js",
+    "start": "node server.js",
     "seedAdmin": "node scripts/seedAdmin.js",
     "seedDepartment": "node scripts/seedDepartment.js",
     "seedDoctors": "node scripts/seedDoctors.js",
@@ -26,7 +26,6 @@
     "pg": "^8.22.0",
     "pg-hstore": "^2.3.4",
     "postgres": "^3.4.9",
-    "sequelize": "^6.37.8",
-    "vite": "^8.2.1"
+    "sequelize": "^6.37.8"
   }
 }
