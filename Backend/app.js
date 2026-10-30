@@ -15,7 +15,10 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://hospital-management-system-mern-1f443ged1.vercel.app"
+    ],
     credentials: true,
   })
 );
