@@ -34,6 +34,5 @@ app.get('/', (req, res) => {
     res.send('Hello World');
 });
     
-const PORT = process.env.PORT || 3900;
 
 export default app;
