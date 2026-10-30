@@ -35,7 +35,7 @@ const Register = () => {
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const response = await axios.get("/departments");
+        const response = await api.get("/departments");
         setDepartments(response.data?.data || []);
       } catch (err) {
         console.error("Failed to fetch departments", err);
