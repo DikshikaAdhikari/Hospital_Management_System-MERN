@@ -76,11 +76,7 @@ const Register = () => {
         payload.consultationFee = formData.consultationFee;
         payload.departmentId = formData.departmentId;
       }
-
-      const response = await axios.post(
-        "http://localhost:3900/api/auth/register",
-        payload
-      );
+const response = await api.post("/auth/register", payload);
       console.log("Register Response:", response.data);
 
       setMessage(
