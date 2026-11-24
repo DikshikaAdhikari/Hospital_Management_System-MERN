@@ -148,7 +148,8 @@ receptionist.belongsTo(user, {
     } 
     catch (error) {
         console.error("Unable to connect to the database:", error);
-    }
+      throw error;
+      }
 };
 export { connectionDB, sequelize , appointment, user, 
 Department, DoctorDepartment, patient, Doctor, receptionist
