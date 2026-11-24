@@ -11,6 +11,43 @@ import dotenv from "dotenv";
 dotenv.config();
 
 /**
+ * Helper — returns the JWT access secret or throws a clear 500-level error
+ * so that a missing environment variable never surfaces as the confusing
+ * "secretOrPrivateKey must have a value" message from jsonwebtoken.
+ */
+const getAccessSecret = () => {
+  const secret = process.env.JWT_Access_SECRET || process.env.JWT_SECRET;
+  if (!secret) {
+    throw {
+      status: 500,
+      message:
+        "JWT secret is not configured on the server. Please set JWT_SECRET in environment variables.",
+    };
+  }
+  return secret;
+};
+
+/**
+ * Helper — returns the JWT refresh secret.
+ * Falls back to the access secret if JWT_REFRESH_SECRET is not set so that a
+ * missing variable doesn't silently produce an undefined key.
+ */
+const getRefreshSecret = () => {
+  const secret =
+    process.env.JWT_REFRESH_SECRET ||
+    process.env.JWT_Access_SECRET ||
+    process.env.JWT_SECRET;
+  if (!secret) {
+    throw {
+      status: 500,
+      message:
+        "JWT secret is not configured on the server. Please set JWT_SECRET in environment variables.",
+    };
+  }
+  return secret;
+};
+
+/**
  * ============================================================
  * REGISTER USER
  * ============================================================
@@ -191,13 +228,18 @@ export const registerService = async ({
     }
   }
 
+  // Validate secrets before signing — gives a clear 500 error instead of the
+  // cryptic "secretOrPrivateKey must have a value" from jsonwebtoken.
+  const accessSecret = getAccessSecret();
+  const refreshSecret = getRefreshSecret();
+
   // Generate access token
   const accessToken = jwt.sign(
     {
       id: newUser.id,
       role: newUser.roles,
     },
-    process.env.JWT_Access_SECRET || process.env.JWT_SECRET,
+    accessSecret,
     {
       expiresIn:
         process.env.JWT_Access_EXPIRES_IN || "3650d",
@@ -210,7 +252,7 @@ export const registerService = async ({
       id: newUser.id,
       role: newUser.roles,
     },
-    process.env.JWT_REFRESH_SECRET,
+    refreshSecret,
     {
       expiresIn:
         process.env.JWT_REFRESH_EXPIRES_IN || "3650d",
@@ -261,13 +303,17 @@ export const loginService = async ({ email, password }) => {
     };
   }
 
+  // Validate secrets before signing
+  const accessSecret = getAccessSecret();
+  const refreshSecret = getRefreshSecret();
+
   // Generate access token
   const accessToken = jwt.sign(
     {
       id: newUser.id,
       role: newUser.roles,
     },
-    process.env.JWT_Access_SECRET || process.env.JWT_SECRET,
+    accessSecret,
     {
       expiresIn:
         process.env.JWT_Access_EXPIRES_IN || "3650d",
@@ -280,7 +326,7 @@ export const loginService = async ({ email, password }) => {
       id: newUser.id,
       role: newUser.roles,
     },
-    process.env.JWT_REFRESH_SECRET,
+    refreshSecret,
     {
       expiresIn:
         process.env.JWT_REFRESH_EXPIRES_IN || "3650d",
@@ -297,4 +343,3 @@ export const loginService = async ({ email, password }) => {
     user: userData,
   };
 };
-
